@@ -1,3 +1,5 @@
+# constants
+
 ROOMS = {
     'entrance': {
         'description': (

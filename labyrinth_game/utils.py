@@ -1,4 +1,7 @@
-from labyrinth_game.constants import ROOMS
+# utils
+
+from .constants import ROOMS
+
 
 def describe_current_room(game_state):
     """Выводит описание текущей комнаты"""
