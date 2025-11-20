@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 # Подключаем собственные модули проекта
+from .constants import ROOMS
 from .player_actions import get_input, move_player, show_inventory, take_item, use_item
-from .utils import describe_current_room
+from .utils import attempt_open_treasure, describe_current_room, show_help, solve_puzzle
 
 
 def process_command(game_state, command):
@@ -30,7 +31,10 @@ def process_command(game_state, command):
 
         case "take" | "get":
             if arg:
-                take_item(game_state, arg)
+                if arg == "treasure_chest":
+                    print("Вы не можете поднять сундук, он слишком тяжелый.")
+                else:
+                    take_item(game_state, arg)
             else:
                 print("Что взять? Например: take torch")
 
@@ -39,6 +43,17 @@ def process_command(game_state, command):
                 use_item(game_state, arg)
             else:
                 print("Что использовать? Например: use torch")
+
+        case "solve":
+            current_room = game_state['current_room']
+            # В комнате с treasure_chest сначала проверяем возможность победы
+            if "treasure_chest" in ROOMS[current_room].get("items", []):
+                attempt_open_treasure(game_state)
+            else:
+                solve_puzzle(game_state)
+
+        case "help":
+            show_help()
 
         case "quit" | "exit":
             print("Вы вышли из игры.")
