@@ -1,7 +1,5 @@
 # utils
 
-from labyrinth_game.player_actions import get_input
-
 from .constants import ROOMS
 
 
