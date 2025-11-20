@@ -1,0 +1,38 @@
+[project]
+name = "project1-startseva-elena-m25-555"
+version = "0.1.0"
+description = "Текстовая игра 'Лабиринт сокровищ'"
+authors = [
+    {name = "startseva_elena"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ruff (>=0.14.5,<0.15.0)"
+]
+
+[project.scripts]
+project = "labyrinth_game.main:main"
+
+[tool.poetry]
+packages = [
+    { include = "labyrinth_game" }
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.14.5,<0.15.0)"
+]

@@ -1,0 +1,22 @@
+# Виртуальные окружения
+.venv/
+venv/
+ENV/
+env/
+
+# Poetry cache
+.poetry/
+
+# Директория сборки и артефакты пакета
+dist/
+
+# Кеши Python
+__pycache__/
+*.pyc
+
+# IDE и редакторы
+.vscode/
+.idea/
+
+# Логи
+*.log
