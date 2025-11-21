@@ -13,26 +13,37 @@ def show_inventory(game_state):
         print("Инвентарь пуст.")
 
 
-def get_input(prompt="> "):
-    """Считывает ввод пользователя с обработкой прерываний"""
-    try:
-        return input(prompt).strip()
-    except (KeyboardInterrupt, EOFError):
-        print("\nВыход из игры.")
-        return "quit"
-
-
 def move_player(game_state, direction):
+    from .utils import random_event
     current_room = game_state["current_room"]
     room_data = ROOMS[current_room]
 
     if direction in room_data["exits"]:
         new_room = room_data["exits"][direction]
+
+        # Проверка перехода в treasure_room
+        if new_room == "treasure_room":
+            if "rusty_key" in game_state["player_inventory"]:
+                print(
+                    "Вы используете найденный ключ, чтобы открыть путь "
+                    "в комнату сокровищ."
+                )
+            else:
+                print("Дверь заперта. Нужен ключ, чтобы пройти дальше.")
+                return  # не даём войти без ключа
+
+        # Обновляем состояние игры
         game_state["current_room"] = new_room
         game_state["steps_taken"] += 1
 
         print(f"\nВы переместились в комнату: {new_room}\n")
+        
+        # Показываем описание новой комнаты
         describe_current_room(game_state)
+
+        # Добавлено: триггер случайных событий
+        random_event(game_state)
+
     else:
         print("Нельзя пойти в этом направлении.")
 

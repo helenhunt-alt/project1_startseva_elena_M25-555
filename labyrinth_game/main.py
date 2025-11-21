@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 
 # Подключаем собственные модули проекта
-from .constants import ROOMS
-from .player_actions import get_input, move_player, show_inventory, take_item, use_item
-from .utils import attempt_open_treasure, describe_current_room, show_help, solve_puzzle
+from .constants import COMMANDS, ROOMS
+from .player_actions import move_player, show_inventory, take_item, use_item
+from .utils import (
+    attempt_open_treasure,
+    describe_current_room,
+    get_input,
+    show_help,
+    solve_puzzle,
+)
 
 
 def process_command(game_state, command):
@@ -15,6 +21,12 @@ def process_command(game_state, command):
     parts = command.lower().split()
     action = parts[0]
     arg = parts[1] if len(parts) > 1 else None
+
+    # Движение без go (north, south...)
+    directions = {"north", "south", "east", "west", "up", "down"}
+    if action in directions:
+        move_player(game_state, action)
+        return
 
     match action:
         case "look" | "describe":
@@ -53,7 +65,7 @@ def process_command(game_state, command):
                 solve_puzzle(game_state)
 
         case "help":
-            show_help()
+            show_help(COMMANDS)
 
         case "quit" | "exit":
             print("Вы вышли из игры.")
