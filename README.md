@@ -37,7 +37,7 @@ make project
 
 ## Демонстрация
 
-[Смотреть запись прохождения победного сценария](https://asciinema.org/connect/01146ece-3c53-4fb2-9be7-c94cc13f36c7)
+[Смотреть запись прохождения победного сценария](https://asciinema.org/a/9LInlVPlMUc6c9MvDwsDf2p9J)
 
 ---
 
